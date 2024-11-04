@@ -1,0 +1,35 @@
+server:
+  port:
+    8080
+
+spring:
+  application:
+    name:
+      patient
+  jpa:
+    hibernate:
+      ddl-auto: none
+      show-sql: true
+      properties:
+        hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+        hibernate.format_sql: true
+        hibernate.use_sql_comments: true
+        hibernate.naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+          implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+#    defer-datasource-initialization: true
+    #    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    test:
+      hibernate.ddl-auto: create-drop
+  liquibase:
+    change-log: classpath:/db/changelog.xml
+  datasource:
+    url: jdbc:mysql://localhost:3306/patient_db?createDatabaseIfNotExist=true
+    username: root
+    password: P@ssw0rd
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    test:
+      url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;MODE=MySQL;INIT=RUNSCRIPT FROM 'src/main/resources/db/schema.sql'
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: password
